@@ -5,9 +5,9 @@ const github = require('@actions/github');
 // most @actions toolkit packages have async methods
 async function run() {
   try { 
-    const data = github.context.payload;
+    const { issue } = github.context.payload;
 
-    core.debug(JSON.stringify(data));
+    core.setFailed(JSON.stringify(issue));
   } 
   catch (error) {
     core.setFailed(error.message);
