@@ -15,4 +15,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        branch: ${{ env.BRANCH }}
+        branch: ${{ env.branch }}
+        body: ${{ env.body }}
+        commit-message: ${{ env.commitMessage }}
+        author: "sinchang<sinchangwen@gmail.com>"

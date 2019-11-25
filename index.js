@@ -19,20 +19,21 @@ async function run() {
       })
     }
 
-    const { comment: { body: commentBody }} = github.context.payload;
-    // const { comment: { body: commentBody }} = payload;
-
+    const { comment: { body: commentBody, user: { login: commentUsername }, url: commentUrl }} = github.context.payload;
     const { action, who, contributions } = parseComment(commentBody)
 
     if (!action) {
-      core.setFailed('action is false')
+      core.setFailed('action only support add')
     }
 
     await exec.exec(`npm run contributors:add ${who} ${contributions.join(',')}`);
     await exec.exec(`npm run contributors:generate`);
 
     // set env
-    core.exportVariable('BRANCH', `add-${who}`);
+    core.exportVariable('branch', `add-${who}`);
+    core.exportVariable('title', `docs: add ${who} as a contributor`);
+    core.exportVariable('body', `Adds ${who} as a contributor for ${contributions.join(',')}. \n This was requested by ${commentUsername} in [this comment](${commentUrl})`);
+    core.exportVariable('commitMessage', `docs: add ${who} as a contributor`);
   } 
   catch (error) {
     core.setFailed(error.message)
