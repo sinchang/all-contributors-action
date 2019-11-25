@@ -15,8 +15,4 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        title: "My pull request title"
-        body: "My pull request body"
-        branch: ${{ secrets.BRANCH }}
-        commit-message: "My commit message for uncommited changes in lib/ folder"
-        author: "Lorem J. Ipsum <lorem@example.com>"
+        branch: ${ BRANCH }
