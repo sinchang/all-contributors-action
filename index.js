@@ -18,7 +18,7 @@ async function run() {
         projectOwner
       })
     }
-
+    core.debug(JSON.stringify(github.context.payload))
     const { issue: { body: commentBody }} = github.context.payload;
 
     const { action, who, contributions } = parseComment(commentBody)
