@@ -1,3 +1,6 @@
+on:
+  issue_comment:
+    types: [created]
 name: "test"
 jobs:
   test:

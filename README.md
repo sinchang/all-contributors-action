@@ -13,7 +13,7 @@
 name: "all-contributors"
 on:
   issue_comment:
-    types: [created, edited]
+    types: [created]
 
 jobs:
   add-contributors:
