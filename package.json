@@ -1,12 +1,14 @@
 {
-  "name": "javascript-action",
+  "name": "all-contributors-action",
   "version": "1.0.0",
-  "description": "JavaScript Action Template",
-  "main": "index.js",
+  "description": "A GitHub action to automate acknowledging contributors to your open source projects",
+  "main": "dist/index.js",
   "scripts": {
     "lint": "eslint index.js",
     "package": "ncc build index.js -o dist",
-    "test": "eslint index.js && jest"
+    "test": "eslint index.js && jest",
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
   },
   "repository": {
     "type": "git",
@@ -15,21 +17,43 @@
   "keywords": [
     "GitHub",
     "Actions",
-    "JavaScript"
+    "JavaScript",
+    "all-contributors"
   ],
-  "author": "GitHub",
+  "author": "sinchang<sinchangwen@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/actions/javascript-action/issues"
+    "url": "https://github.com/sinchang/all-contributors-action/issues"
   },
-  "homepage": "https://github.com/actions/javascript-action#readme",
+  "homepage": "https://github.com/actions/all-contributors-action#readme",
   "dependencies": {
     "@actions/core": "^1.2.0",
-    "@actions/github": "^1.1.0"
+    "@actions/exec": "^1.0.1",
+    "@actions/github": "^1.1.0",
+    "all-contributors-cli": "^6.11.0",
+    "compromise": "^11.14.3"
   },
   "devDependencies": {
+    "@semantic-release/git": "^7.0.18",
     "@zeit/ncc": "^0.20.5",
     "eslint": "^6.3.0",
-    "jest": "^24.9.0"
+    "jest": "^24.9.0",
+    "semantic-release": "^15.13.31"
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "dist/index.js"
+          ],
+          "message": "build(release): compiled action for ${nextRelease.version}\n\n[skip ci]"
+        }
+      ],
+      "@semantic-release/github"
+    ]
   }
 }
