@@ -10,12 +10,12 @@ async function run() {
   try {
     const { GITHUB_REPOSITORY } = process.env;
     core.debug(GITHUB_REPOSITORY)
-    const [ repo, owner ] = GITHUB_REPOSITORY.split('/')
+    const [ projectOwner, projectName ] = GITHUB_REPOSITORY.split('/')
 
     if (!fs.existsSync('.all-contributorsrc')) {
       initContent({
-        projectName: repo,
-        projectOwner: owner
+        projectName,
+        projectOwner
       })
     }
 
