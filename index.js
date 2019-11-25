@@ -33,7 +33,6 @@ async function run() {
 
     // set env
     core.exportVariable('BRANCH', `add-${who}`);
-    core.debug('branch', process.env.BRANCH)
   } 
   catch (error) {
     core.setFailed(error.message)
