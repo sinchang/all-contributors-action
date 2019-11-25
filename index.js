@@ -7,7 +7,7 @@ async function run() {
   try { 
     const data = github.context.payload;
 
-    core.debug(data);
+    core.debug(JSON.stringify(data));
   } 
   catch (error) {
     core.setFailed(error.message);
