@@ -18,8 +18,8 @@ async function run() {
         projectOwner
       })
     }
-    core.debug(JSON.stringify(github.context.payload))
-    const { issue: { body: commentBody }} = github.context.payload;
+
+    const { comment: { body: commentBody }} = github.context.payload;
 
     const { action, who, contributions } = parseComment(commentBody)
 
@@ -29,6 +29,10 @@ async function run() {
 
     await exec.exec(`all-contributors add ${who} ${contributions.join(',')}`);
     await exec.exec(`all-contributors generate`);
+
+    // set env
+    await exec.exec(`echo "::set-env name=BRANCH::all-contributors/add-${who}"`)
+    core.debug(process.env.BRANCH)
   } 
   catch (error) {
     core.setFailed(error.message)
