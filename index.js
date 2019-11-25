@@ -8,7 +8,7 @@ const parseComment = require('./lib/parseComment')
 
 async function run() {
   try {
-    const { GITHUB_REPOSITORY } = process.env;
+    const { GITHUB_REPOSITORY = 'sinchang/repo' } = process.env;
     core.debug(GITHUB_REPOSITORY)
     const [ projectOwner, projectName ] = GITHUB_REPOSITORY.split('/')
 
@@ -20,6 +20,7 @@ async function run() {
     }
 
     const { comment: { body: commentBody }} = github.context.payload;
+    // const { comment: { body: commentBody }} = payload;
 
     const { action, who, contributions } = parseComment(commentBody)
 
@@ -27,8 +28,8 @@ async function run() {
       core.setFailed('action is false')
     }
 
-    await exec.exec(`all-contributors add ${who} ${contributions.join(',')}`);
-    await exec.exec(`all-contributors generate`);
+    await exec.exec(`npm run contributors:add ${who} ${contributions.join(',')}`);
+    await exec.exec(`npm run contributors:generate`);
 
     // set env
     await exec.exec(`echo "::set-env name=BRANCH::all-contributors/add-${who}"`)
