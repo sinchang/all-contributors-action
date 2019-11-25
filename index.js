@@ -1,16 +1,36 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
+const core = require('@actions/core')
+const github = require('@actions/github')
+const exec = require('@actions/exec')
+const fs = require('fs')
+const initContent = require('./lib/initContent.js')
+const parseComment = require('./lib/parseComment')
+// const payload = require('./mock/payload.json')
 
-
-// most @actions toolkit packages have async methods
 async function run() {
-  try { 
-    const { issue } = github.context.payload;
+  try {
+    const { GITHUB_REPOSITORY = 'sinchang/all-contributors-action' } = process.env;
+    const [ repo, owner ] = GITHUB_REPOSITORY.split('/')
 
-    core.setFailed(JSON.stringify(issue));
+    if (!fs.existsSync('.all-contributorsrc')) {
+      initContent({
+        projectName: repo,
+        projectOwner: owner
+      })
+    }
+
+    const { issue: { body: commentBody }} = github.context.payload;
+
+    const { action, who, contributions } = parseComment(commentBody)
+
+    if (!action) {
+      core.setFailed('action is false')
+    }
+
+    await exec.exec(`all-contributors add ${who} ${contributions.join(',')}`);
+    await exec.exec(`all-contributors generate`);
   } 
   catch (error) {
-    core.setFailed(error.message);
+    core.setFailed(error.message)
   }
 }
 
