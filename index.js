@@ -8,7 +8,8 @@ const parseComment = require('./lib/parseComment')
 
 async function run() {
   try {
-    const { GITHUB_REPOSITORY = 'sinchang/all-contributors-action' } = process.env;
+    const { GITHUB_REPOSITORY } = process.env;
+    core.debug(GITHUB_REPOSITORY)
     const [ repo, owner ] = GITHUB_REPOSITORY.split('/')
 
     if (!fs.existsSync('.all-contributorsrc')) {
