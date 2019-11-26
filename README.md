@@ -35,7 +35,15 @@ jobs:
         commit-message: ${{ env.commitMessage }} // more config can see https://github.com/gr2m/create-or-update-pull-request-action
 ```
 
- make sure complete repository filed on package.json.
+make sure complete repository filed on package.json.
+
+## Trigger
+
+comment on the issue or pull request like below words.
+
+```
+@all-contributors-action please add @sinchang for infra
+```
 
 ## Thanks
 
