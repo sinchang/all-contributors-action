@@ -2814,14 +2814,6 @@ async function run() {
     const { GITHUB_REPOSITORY } = process.env;
     core.debug(GITHUB_REPOSITORY);
     const [projectOwner, projectName] = GITHUB_REPOSITORY.split("/");
-
-    if (!fs.existsSync(".all-contributorsrc")) {
-      initContent({
-        projectName,
-        projectOwner
-      });
-    }
-
     const { payload, eventName } = github.context;
     const payloadData = eventName === 'issue_comment' ? payload.comment : payload;
 
@@ -2830,16 +2822,28 @@ async function run() {
       user: { login: commentUsername },
       html_url: commentUrl
     } = payloadData;
+
+    if (commentBody.indexOf('@all-contributors-action') === -1) {
+      process.exit(0)
+    }
+
     const { action, who, contributions } = parseComment(commentBody);
 
     if (!action) {
       core.setFailed("action only support add");
     }
 
+    if (!fs.existsSync(".all-contributorsrc")) {
+      await initContent({
+        projectName,
+        projectOwner
+      });
+    }
+
     await exec.exec(
-      `npm run contributors:add ${who} ${contributions.join(",")}`
+      `all-contributors add ${who} ${contributions.join(",")}`
     );
-    await exec.exec(`npm run contributors:generate`);
+    await exec.exec(`all-contributors generate`);
 
     // set env
     core.exportVariable("branch", `add-${who}`);
