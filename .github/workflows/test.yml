@@ -6,7 +6,6 @@ on:
 name: test
 jobs:
   test:
-    if: startsWith(github.ref, 'pr')
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
