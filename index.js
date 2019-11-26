@@ -18,13 +18,14 @@ async function run() {
       });
     }
 
+    const { payload, eventName } = github.context;
+    const payloadData = eventName === 'issue_comment' ? payload.comment : payload;
+
     const {
-      comment: {
-        body: commentBody,
-        user: { login: commentUsername },
-        html_url: commentUrl
-      }
-    } = github.context.payload;
+      body: commentBody,
+      user: { login: commentUsername },
+      html_url: commentUrl
+    } = payloadData;
     const { action, who, contributions } = parseComment(commentBody);
 
     if (!action) {

@@ -13,7 +13,9 @@
 name: "all-contributors"
 on:
   issue_comment:
-    types: [created, edited]
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
 
 jobs:
   add-contributors:
