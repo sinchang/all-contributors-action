@@ -37,9 +37,9 @@ async function run() {
     }
 
     await exec.exec(
-      `all-contributors add ${who} ${contributions.join(",")}`
+      `npx all-contributors add ${who} ${contributions.join(",")}`
     );
-    await exec.exec(`all-contributors generate`);
+    await exec.exec(`npx all-contributors generate`);
 
     // set env
     core.exportVariable("branch", `add-${who}`);

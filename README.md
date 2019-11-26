@@ -35,6 +35,8 @@ jobs:
         commit-message: ${{ env.commitMessage }} // more config can see https://github.com/gr2m/create-or-update-pull-request-action
 ```
 
+ make sure complete repository filed on package.json.
+
 ## Thanks
 
 - [@gr2m/create-or-update-pull-request-action](https://github.com/gr2m/create-or-update-pull-request-action)
