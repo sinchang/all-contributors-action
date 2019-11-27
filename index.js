@@ -36,21 +36,25 @@ async function run() {
       });
     }
 
+    const contributors = JSON.parse(fs.readFileSync('.all-contributorsrc', 'utf-8')).contributors
+    const isExist = contributors.some(contributor => contributor.login === who)
+    const actionType = isExist ? 'update' : 'add'
+
     await exec.exec(
       `npx all-contributors-cli add ${who} ${contributions.join(",")}`
     );
     await exec.exec(`npx all-contributors-cli generate`);
 
     // set env
-    core.exportVariable("branch", `add-${who}`);
-    core.exportVariable("title", `docs: add ${who} as a contributor`);
+    core.exportVariable("branch", `${actionType}-${who}`);
+    core.exportVariable("title", `docs: ${actionType} ${who} as a contributor`);
     core.exportVariable(
       "body",
-      `Adds ${who} as a contributor for ${contributions.join(
+      `${actionType}s ${who} as a contributor for ${contributions.join(
         ","
       )}. \n This was requested by ${commentUsername} in [this comment](${commentUrl})`
     );
-    core.exportVariable("commitMessage", `docs: add ${who} as a contributor`);
+    core.exportVariable("commitMessage", `docs: ${actionType} ${who} as a contributor`);
   } catch (error) {
     core.setFailed(error.message);
   }
