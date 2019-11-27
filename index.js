@@ -37,7 +37,7 @@ async function run() {
     }
 
     const contributors = JSON.parse(fs.readFileSync('.all-contributorsrc', 'utf-8')).contributors
-    const isExist = contributors.some(contributor => contributor.login === who)
+    const isExist = Array.isArray(contributors) && contributors.some(contributor => contributor.login === who)
     const actionType = isExist ? 'update' : 'add'
 
     await exec.exec(
