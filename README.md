@@ -32,10 +32,11 @@ jobs:
         branch: ${{ env.branch }}
         body: ${{ env.body }}
         title: ${{ env.title }}
-        commit-message: ${{ env.commitMessage }} // more config can see https://github.com/gr2m/create-or-update-pull-request-action
+        commit-message: ${{ env.commitMessage }}
 ```
 
-make sure complete repository filed on package.json.
+- make sure complete repository filed on package.json.
+- more config about `gr2m/create-or-update-pull-request-action` can see on https://github.com/gr2m/create-or-update-pull-request-action
 
 ## Trigger
 
