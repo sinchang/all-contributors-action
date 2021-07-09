@@ -58,6 +58,7 @@ comment on the issue or pull request like below words.
 ## License
 
 MIT
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -67,7 +68,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://sinchang.me/"><img src="https://avatars0.githubusercontent.com/u/3297859?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jeff Wen</b></sub></a><br /><a href="https://github.com/sinchang/all-contributors-action/commits?author=sinchang" title="Tests">⚠️</a></td>
+    <td align="center"><a href="https://sinchang.me/"><img src="https://avatars.githubusercontent.com/u/3297859?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jeff Wen</b></sub></a><br /><a href="#ideas-sinchang" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
